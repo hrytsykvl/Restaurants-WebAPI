@@ -7,6 +7,15 @@ namespace Restaurants.Application.Restaurants.DTO
     {
         public RestaurantsProfile()
         {
+            CreateMap<CreateRestaurantDto, Restaurant>()
+                .ForMember(d => d.Address, options => options.MapFrom(
+                    src => new Address
+                    {
+                        City = src.City,
+                        ZipCode = src.ZipCode,
+                        Street = src.Street
+                    }));
+
             CreateMap<Restaurant, RestaurantDto>()
                 .ForMember(d => d.City, options =>
                     options.MapFrom(src => src.Address == null ? null : src.Address.City))
