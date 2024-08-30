@@ -1,0 +1,20 @@
+﻿using AutoMapper;
+using Restaurants.Domain.Entities;
+
+namespace Restaurants.Application.Restaurants.DTO
+{
+    public class RestaurantsProfile : Profile
+    {
+        public RestaurantsProfile()
+        {
+            CreateMap<Restaurant, RestaurantDto>()
+                .ForMember(d => d.City, options =>
+                    options.MapFrom(src => src.Address == null ? null : src.Address.City))
+                .ForMember(d => d.ZipCode, options =>
+                    options.MapFrom(src => src.Address == null ? null : src.Address.ZipCode))
+                .ForMember(d => d.Street, options =>
+                    options.MapFrom(src => src.Address == null ? null : src.Address.Street))
+                .ForMember(d => d.Dishes, options => options.MapFrom(src => src.Dishes));
+        }
+    }
+}
